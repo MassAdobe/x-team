@@ -243,6 +243,85 @@ docker-compose version 1.29.2, build 5becea4c
 >      url: 'test.server.service.UseApi/ApiPost'
 >```
 
+#### 配置解析
+
+##### `web.rate-limit`是配置调用限流的配置
+
+局部速率限制过滤器对过滤器链处理的传入连接应用一个令牌桶速率限制。
+
+令牌桶算法的基础是令牌在桶中的类比。桶里的令牌以一个固定的速度被重新填满。每次收到一个请求或连接时，我们都会检查桶里是否还有令牌。如果有，就从桶中取出一个令牌，然后处理该请求。如果没有剩余的令牌，该请求就会被放弃（即速率限制）。
+
+![rate-limit-1](../../doc/pics/rate-limit-1.png)
+
+局部速率限制可以在监听器层面或虚拟主机或路由层面进行全局配置，就像全局速率限制一样。我们还可以在同一配置中结合全局和局部速率限制。
+
+`token_bucket` 指定了过滤器处理的请求所使用的配置。它包括桶可以容纳的最大令牌数量（`max_tokens`），每次填充的令牌数量（`tokens_per_refill`）以及填充间隔（`fill_interval`）。
+
+下面是一个最多可以容纳 `5000` 个令牌的桶的配置实例。每隔 `30` 秒，向桶中添加 `100` 个令牌。桶中的令牌容量永远不会超过 `5000`。
+
+为了控制令牌桶是在所有 `worker` 之间共享（即每个 `Envoy` 进程）还是按连接使用，我们可以设置 `local_rate_limit_per_downstream_connection` 字段。默认值是 `false`，这意味着速率限制被应用于每个 `Envoy` 进程。
+
+控制是否启用或强制执行某一部分请求的速率限制的两个设置被称为 `filter_enabled和` `filter_enforced`。这两个值在默认情况下都设置为 `0%`。
+
+速率限制可以被启用，但不一定对一部分请求强制执行。例如，我们可以对 `50%` 的请求启用速率限制。然后，在这 50% 的请求中，我们可以强制执行速率限制。
+
+![rate-limit-2](../../doc/pics/rate-limit-2.png)
+
+#### 过滤不用拦截的接口
+
+**注意：**按照顺序拦截
+
+配置中有：`name`下有：
++ `url`；
++ `rate-limit` 下有；
+    + `max-tokens`；
+    + `fill-interval`；
+    + `tokens-per-fill`；
+
+如果不配置`rate-limit`，那么默认使用`web.rate-limit`的配置限流。
+    
+##### 顺序拦截
+
+如上配置示例，匹配拦截书序为：
++ ① `api`；
++ ② `api1`；
++ ③ `api2`；
++ ④ `api3`；
+
+##### `url`使用的是前缀配置，且需要配置`proto`的方法调用定义：
+
+前缀匹配含义:
+
+例如：`url`：`/a123/b123/c123/d123`；
+
+如果配置：`/a123`
+
+即 可以匹配到 `/a123/b123/c123/d123`、`/a123/b123/c123`、`/a123/b123`、`/a123/b456/c345/d789`、...
+
+如果配置：`/a123/b12`
+
+即 可以匹配到 `/a123/b123/c123/d123`、`/a123/b123/c123`、`/a123/b125`、`/a123/b126xxxx/c345/d789`、...
+
+##### `gRPC`方法路径：例如：
+
+```protobuf
+package test.server.service;
+
+option java_package = "test.server.service";
+option java_outer_classname = "TestApiProto";
+
+service TestApi {
+  // 测试接口
+  rpc Testing (TestRequest) returns (TestResponse) {
+    option (google.api.http) = {
+      get: "/test-server/v1/testApi/testing/{first_id=firsts/*}"
+    };
+  };
+}
+```
+
+上面示例中，实际`测试接口`对应的`proto`的接口路由路径为：`test.server.service.TestApi/Testing`。
+
 #### 启动框架的配置
 
 + 创建文件夹：`$ mkdir -p ~/docker/envoy/envoy-grpc-xds`;
