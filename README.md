@@ -2,12 +2,19 @@
 
 + 需要`maven`；
 + 需要`jdk11`;
++ 需要`envoy`；
++ 需要`redis`；
++ 需要`mysql8`；
 
 ```shell
 $ vim ~/.bash_profile
 # 设置 JDK 11
 export JAVA_11_HOME=`/usr/libexec/java_home -v 11`
 ```
+
+# ENVOY
+
+[envoy教程](x-team-starters/x-team-grpc-springboot-starter/README.md)
 
 # 安装 protobuf
 

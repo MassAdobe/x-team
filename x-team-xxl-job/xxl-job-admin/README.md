@@ -179,7 +179,7 @@ spring:
   dataSource:
     username: test
     password: test123
-    url: jdbc:mysql://172.17.110.106:3388/xxl_job?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://172.17.110.108:3388/xxl_job?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:

@@ -66,8 +66,8 @@ spring:
         server-addr: ${NACOS_CONFIG_ADDR:127.0.0.1:8848}
         file-extension: 'yml'
         namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
-        username: ${NACOS_CONFIG_USERNAME:gaussian}
-        password: ${NACOS_CONFIG_PASSWORD:gaussian}
+        username: ${NACOS_CONFIG_USERNAME:abc}
+        password: ${NACOS_CONFIG_PASSWORD:abc}
 logging:
   file-location: /usr/local/logs/x-team
 ```
@@ -97,7 +97,7 @@ spring:
   dataSource:
     username: test
     password: test123
-    url: jdbc:mysql://172.17.110.106:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://172.17.110.108:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
 ```
 
 ---
@@ -568,6 +568,7 @@ public void consumeSecond(List<ConsumerRecord<String, String>> records, Acknowle
 + 使用`logback`的文件配置方式，且日志输出和打印标准化；
 + 日志添加`TraceId`方便链路追踪；
 + 提供无源调用的`TraceId`声明式生成和销毁方法；
++ 日志添加`StepId`方便链路层级追踪；
 + 支持日志级别：
     + `trace`：是追踪，就是程序推进以下，你就可以写个trace输出，所以trace应该会特别多，不过没关系，我们可以设置最低日志级别不让他输出。
     + `debug`：指出细粒度信息事件对调试应用程序是非常有帮助的。
@@ -643,21 +644,21 @@ oss:
   # 公有配置
   public:
     endpoint: oss-cn-shanghai.aliyuncs.com
-    access-key-id: LTAI5tFD55ymDeNFXsM92b
-    access-key-secret: vUMqeDytWb6mJqrrrUYVgFJDvf6t
-    bucket-name: aiot-bu-public
+    access-key-id: LTAI5tFDeNFXsM92b
+    access-key-secret: vUMqeDyJqrrrUYVgFJDvf6t
+    bucket-name: x-team-bu-public
     permit-format:
       - apk
   # 私有配置
   private:
     endpoint: oss-cn-shanghai.aliyuncs.com
-    access-key-id: LTAI5tFD55ymDeNFXsM92b
-    access-key-secret: vUMqeDytWb6mJqrrrUYVgFJDvf6t
-    bucket-name: aiot-bu-private
+    access-key-id: LTAI5tFDdfeDeNFXsM92b
+    access-key-secret: dffefjIOEJDfjkekfdfj
+    bucket-name: x-team-bu-private
     region-id: cn-shanghai
-    role-arn: 'acs:ram::1094210804279118:role/aiot-oss-sts'
+    role-arn: 'acs:ram::1094210884279118:role/x-team-oss-sts'
     role-session-name: 'ics'
-    policy: '{"Version": "1", "Statement": [{"Action": ["oss:PutObject","oss:GetObject"], "Resource": ["acs:oss:*:1094210804279118:aiot-bu-private/*","acs:oss:*:1094210804279118:aiot-bu-public/*"],"Effect": "Allow"}]}'
+    policy: '{"Version": "1", "Statement": [{"Action": ["oss:PutObject","oss:GetObject"], "Resource": ["acs:oss:*:1094210214279118:x-team-bu-private/*","acs:oss:*:109fc10804279118:x-team-bu-public/*"],"Effect": "Allow"}]}'
     permit-format:
       - apk
 ```
@@ -687,7 +688,7 @@ spring:
   # redis配置
   redis:
     port: 6379
-    password: 86zsEp
+    password: 86zsNDIE
     host: 172.10.4.91
     database: 10
 ```
@@ -894,8 +895,8 @@ spring:
 ```yaml
 sms:
   region-id: cn-shanghai
-  access-key-id: LTAI5t71A66RMDammshhYe
-  access-key-secret: noqqM1RMnEScL7RkRXUCcJWDxcvJ
+  access-key-id: LTAI5t71AcnemshhYe
+  access-key-secret: noqqM1fd7RkeiUCcJWDxcvJ
 ```
 
 ### 方法：

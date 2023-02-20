@@ -67,7 +67,7 @@
 > ### 一流的 HTTP/2 支持
 >> `Envoy` 同时支持 `HTTP/1.1` 和 `HTTP/2`，并且可以作为一个透明的 `HTTP/1.1` 到 `HTTP/2` 的双向代理进行操作。这意味着任何 `HTTP/1.1` 和 `HTTP/2` 客户端和目标服务器的组合都可以被桥接起来。即使你的传统应用没有通过 `HTTP/2` 进行通信，如果你把它们部署在 `Envoy` 代理旁边，它们最终也会通过 `HTTP/2` 进行通信。
 >
->> 推荐在所有的服务间配置的 Envoy 使用 HTTP/2，以创建一个持久连接的网格，请求和响应可以在上面复用。
+>> 推荐在所有的服务间配置的 `Envoy` 使用 `HTTP/2`，以创建一个持久连接的网格，请求和响应可以在上面复用。
 
 > ### HTTP 路由
 >> 当以 `HTTP` 模式操作并使用 `REST` 时，`Envoy` 支持路由子系统，能够根据路径、权限、内容类型和运行时间值来路由和重定向请求。在将 `Envoy` 作为构建 `API` 网关的前台 / 边缘代理时，这一功能非常有用，在构建服务网格（`sidecar` 部署模式）时，也可以利用这一功能。
@@ -198,13 +198,13 @@ docker-compose version 1.29.2, build 5becea4c
 >    dataSource:
 >      username: test
 >      password: test123
->      url: jdbc:mysql://172.17.110.106:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
+>      url: jdbc:mysql://172.17.110.108:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
 >  # redis配置
 >  redis:
 >     port: 6379
->     password: 86zsEp
->     host: 106.15.234.251
->     database: 10
+>     password: 86djeiJJ
+>     host: 127.0.0.1
+>     database: 0
 >  # 过滤不用拦截的接口
 >  web:
 >    # 速率(默认)

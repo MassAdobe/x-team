@@ -251,4 +251,4 @@ public static IcsUser getContext() {
 ```
 
 如上所示：`crewId: -999`, `云平台自用TOKEN为空`, `ADMIN的TOKEN有值, 且会默认使用ADMIN的TOKEN, 即调用云平台`。
-如果调用了`UserContext.getContext()`, 需要显示调用`UserContext.clearContext()`。
+如果调用了`HeaderContext.getContext()`, 需要显示调用`HeaderContext.clearContext()`。
