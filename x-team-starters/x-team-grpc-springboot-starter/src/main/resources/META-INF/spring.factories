@@ -1,0 +1,4 @@
+# Auto Configure
+# com.x.team.grpc.springboot.starter.config.XTeamGrpcServerAutoConfig,\
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.x.team.grpc.springboot.starter.config.RSAConfig

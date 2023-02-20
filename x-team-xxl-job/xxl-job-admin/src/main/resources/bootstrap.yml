@@ -1,0 +1,123 @@
+server:
+  port: ${HTTP_PORT:38080}
+  servlet:
+    context-path: /xxl-job-admin
+spring:
+  profiles:
+    active: ${APPLICATION_PROFILES:native}
+  application:
+    name: xxl-job-admin
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        extension-configs[0]:
+          data-id: xxl-database.yml
+          group: XXL
+  mvc:
+    servlet:
+      load-on-startup: 0
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static/
+  freemarker:
+    templateLoaderPath: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##########
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: xxx@qq.com
+    from: xxx@qq.com
+    password: xxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+          required: true
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory
+management:
+  server:
+    servlet:
+      context-path: /actuator
+  health:
+    mail:
+      enabled: false
+
+---
+spring:
+  profiles: native
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:127.0.0.1:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:gaussian}
+        password: ${NACOS_CONFIG_PASSWORD:gaussian}
+logging:
+  file-location: /usr/local/logs/x-team
+
+---
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:172.17.110.106:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /usr/local/logs/x-team
+
+---
+spring:
+  profiles: staging
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x-team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs
+
+---
+spring:
+  profiles: uat
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x0team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs
+
+---
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x-team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs

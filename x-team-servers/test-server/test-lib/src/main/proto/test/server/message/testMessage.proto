@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package test.server.message;
+
+option java_multiple_files = true;
+option java_package = "test.server.message";
+option java_outer_classname = "TestMessageProto";
+
+// ----------------------测试接口------------------------
+// 测试接口入参
+message TestRequest {
+  string first_id = 1;
+  bool second = 2;
+  repeated Third third = 3;
+}
+
+// 测试接口 Third
+message Third {
+  string third_first = 1;
+  int32 third_second = 2;
+}
+
+// 测试接口出参
+message TestResponse {
+  string a = 1;
+  int32 b = 2;
+}
+
+// ------------------------------------------------

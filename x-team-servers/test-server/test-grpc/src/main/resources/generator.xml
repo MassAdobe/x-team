@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+
+    <context defaultModelType="flat" id="Mariadb" targetRuntime="MyBatis3Simple">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.x.team.database.springboot.starter.mapper.XTeamMapper"/>
+        </plugin>
+
+        <jdbcConnection connectionURL="${spring.datasource.url}"
+                        driverClass="${spring.datasource.driver-class-name}"
+                        password="${spring.datasource.password}"
+                        userId="${spring.datasource.username}">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="${targetXMLPackage}" targetProject="${targetResourcesProject}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table domainObjectName="TUser" tableName="t_user">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" identity="true" sqlStatement="Mysql"/>
+        </table>
+    </context>
+</generatorConfiguration>

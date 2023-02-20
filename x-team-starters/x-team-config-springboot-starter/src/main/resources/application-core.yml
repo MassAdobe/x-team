@@ -1,0 +1,52 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  output:
+    ansi:
+      enabled: never
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  jmx:
+    enabled: false
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+server:
+  servlet:
+    context-path: /mvp-xxl-executor
+  tomcat:
+    uri-encoding: UTF-8
+    min-spare-threads: 300
+    max-threads: 2000
+    # Maximum number of connections that the server accepts and processes at any given time.
+    max-connections: 20000
+    #如果maxThreads满了，会放到 accept-count缓存起来，如果较大，可能出现大量超时请求
+    accept-count: 600
+    connection-timeout: 30000
+  shutdown: graceful
+
+management:
+  health:
+    elasticsearch:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.alibaba.nacos: warn
+    com.alibaba.nacos.client.config.impl.ClientWorker: OFF
+    c.a.n.client.config.impl.ClientWorker: OFF
+    com.alibaba.nacos.client.naming: OFF
+    com.itextpdf.layout.renderer.AbstractRenderer: OFF
+    com.itextpdf.layout.tagging.LayoutTaggingHelper: OFF

@@ -1,0 +1,16 @@
+grpc:
+  server:
+    security:
+      enabled: false
+  client:
+    GLOBAL:
+      # 是否使用keepalive
+      enableKeepAlive: true
+      # client发送keepalive的间隔
+      keep-alive-time: 60s
+      # keepalive 超时时间
+      keep-alive-timeout: 30s
+      # 没有数据包也可发送ping,保活状态
+      keepAliveWithoutCalls: true
+      # 协议种类
+      negotiationType: plaintext

@@ -1,0 +1,10 @@
+spring:
+  redis:
+    max-attempts: 5
+    timeout: 30000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 4
+        max-wait: 3000ms

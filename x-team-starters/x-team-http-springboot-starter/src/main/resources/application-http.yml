@@ -1,0 +1,9 @@
+ok:
+  http:
+    connect-timeout: 30
+    read-timeout: 30
+    write-timeout: 30
+    # 连接池中整体的空闲连接的最大数量
+    max-idle-connections: 200
+    # 连接空闲时间最多为 300 秒
+    keep-alive-duration: 300

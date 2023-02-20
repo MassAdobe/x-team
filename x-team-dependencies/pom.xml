@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.x.team</groupId>
+    <artifactId>x-team-dependencies</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <name>x-team-dependencies</name>
+    <inceptionYear>2023-01-Now</inceptionYear>
+
+    <properties>
+        <!-- 默认不可更改配置 ,环境属性-->
+        <revision>1.0.0-SNAPSHOT</revision>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <targetXMLPackage>mapper</targetXMLPackage>
+        <!-- spring starters -->
+        <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
+        <spring-data-mongodb.version>3.2.6</spring-data-mongodb.version>
+        <spring-kafka.version>2.4.5.RELEASE</spring-kafka.version>
+        <spring-flowable.version>6.6.0</spring-flowable.version>
+        <sharding-jdbc.version>4.0.0-RC1</sharding-jdbc.version>
+        <redission.version>3.19.1</redission.version>
+        <!-- 自研 -->
+        <x-team-common.version>1.0.0-SNAPSHOT</x-team-common.version>
+        <x-team-starters.version>1.0.0-SNAPSHOT</x-team-starters.version>
+        <!-- servers -->
+        <x-team-servers.version>${revision}</x-team-servers.version>
+        <!-- xxl-job -->
+        <xxl-job-core.version>1.0.0-SNAPSHOT</xxl-job-core.version>
+        <!-- others -->
+        <common-io-version>2.6</common-io-version>
+        <commons-lang3-version>3.9</commons-lang3-version>
+        <guava.version>23.0</guava.version>
+        <jackson-databind.verison>2.10.2</jackson-databind.verison>
+        <jwt.version>3.8.0</jwt.version>
+        <apache-pool2.version>2.6.2</apache-pool2.version>
+        <aliyun-java-sdk-core.version>4.5.16</aliyun-java-sdk-core.version>
+        <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
+        <yamlbeans.version>1.08</yamlbeans.version>
+        <mqttv3.version>1.2.2</mqttv3.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
+        <axis.version>1.4</axis.version>
+        <aliyun-java-sdk-core.version>4.5.16</aliyun-java-sdk-core.version>
+        <easyexcel.version>3.0.5</easyexcel.version>
+        <yunpian-java-sdk.version>1.2.7</yunpian-java-sdk.version>
+        <nls-sdk-common.version>2.1.6</nls-sdk-common.version>
+        <bcprov-jdk15on.version>1.68</bcprov-jdk15on.version>
+        <groovy.version>3.0.10</groovy.version>
+        <netty-all.version>4.1.63.Final</netty-all.version>
+        <!-- log -->
+        <logback-more-appenders.version>1.8.0</logback-more-appenders.version>
+        <logback-core.version>1.2.3</logback-core.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <!-- database -->
+        <mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
+        <tk-mybatis-mapper.version>3.4.0</tk-mybatis-mapper.version>
+        <pagehelper.version>1.2.3</pagehelper.version>
+        <github.pagehelper.version>5.1.2</github.pagehelper.version>
+        <druid.version>1.2.6</druid.version>
+        <mysql-connector-java.version>8.0.31</mysql-connector-java.version>
+        <!-- grpc -->
+        <grpc-spring-boot-starter.version>2.13.1.RELEASE</grpc-spring-boot-starter.version>
+        <os-maven-plugin.version>1.6.1</os-maven-plugin.version>
+        <grpc.version>1.37.0</grpc.version>
+        <protobuf.version>3.21.6</protobuf.version>
+        <proto-google-common-protos.version>2.1.0</proto-google-common-protos.version>
+        <!-- plugins -->
+        <plugin-mybatis-generator.version>1.3.5</plugin-mybatis-generator.version>
+        <!-- docker -->
+        <docker.image.prefix>x-team</docker.image.prefix>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- spring starters -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redission.version}</version>
+            </dependency>
+
+            <!-- 自研 -->
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-common</artifactId>
+                <version>${x-team-common.version}</version>
+            </dependency>
+
+            <!-- 自研 springboot-starters -->
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-config-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-database-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-dingtalk-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-grpc-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-http-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-kafka-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-log-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-oss-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-redis-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-rest-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-sms-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-schedule-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>x-team-wechat-springboot-starter</artifactId>
+                <version>${x-team-starters.version}</version>
+            </dependency>
+
+            <!-- servers -->
+            <!-- test-server -->
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>test-lib</artifactId>
+                <version>${x-team-servers.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>test-grpc</artifactId>
+                <version>${x-team-servers.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>test-schedule</artifactId>
+                <version>${x-team-servers.version}</version>
+            </dependency>
+
+            <!-- xxl-job -->
+            <dependency>
+                <groupId>com.x.team</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-core.version}</version>
+            </dependency>
+
+            <!-- others -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${common-io-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.verison}</version>
+                <scope>compile</scope>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson-databind.verison}</version>
+                <scope>compile</scope>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${apache-pool2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.esotericsoftware.yamlbeans</groupId>
+                <artifactId>yamlbeans</artifactId>
+                <version>${yamlbeans.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${mqttv3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.penggle</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.axis</groupId>
+                <artifactId>axis</artifactId>
+                <version>${axis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-all.version}</version>
+            </dependency>
+
+            <!--   目前用于微信手机号码解密     -->
+            <dependency>
+                <groupId>com.yunpian.sdk</groupId>
+                <artifactId>yunpian-java-sdk</artifactId>
+                <version>${yunpian-java-sdk.version}</version>
+            </dependency>
+
+            <!-- 目前用于微信手机号码解密 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bcprov-jdk15on.version}</version>
+            </dependency>
+
+            <!-- log -->
+            <dependency>
+                <groupId>com.sndyuk</groupId>
+                <artifactId>logback-more-appenders</artifactId>
+                <version>${logback-more-appenders.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun-java-sdk-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-sdk-oss.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.nls</groupId>
+                <artifactId>nls-sdk-common</artifactId>
+                <version>${nls-sdk-common.version}</version>
+            </dependency>
+
+            <!-- database -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper</artifactId>
+                <version>${tk-mybatis-mapper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${github.pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
+            <!-- grpc -->
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${grpc-spring-boot-starter.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-client-spring-boot-starter</artifactId>
+                <version>${grpc-spring-boot-starter.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.api.grpc</groupId>
+                <artifactId>proto-google-common-protos</artifactId>
+                <version>${proto-google-common-protos.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${os-maven-plugin.version}</version>
+            </extension>
+        </extensions>
+
+        <plugins>
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <!-- 是否更新pom文件，此处还有更高级的用法 -->
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!-- Add directory entries -->
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!-- Java Document Generate -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/proto</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <defaultGoal>compile</defaultGoal>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>nexus-gaussian</name>
+            <url>https://nexus.gs-robot.com/repository/maven-public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>release</id>
+            <name>nexus-gaussian</name>
+            <url>https://nexus.gs-robot.com/repository/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <name>nexus-gaussian</name>
+            <url>https://nexus.gs-robot.com/repository/snapshots</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Gaussian Releases Repository</name>
+            <url>https://nexus.gs-robot.com/repository/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Gaussian Snapshot Repository</name>
+            <url>https://nexus.gs-robot.com/repository/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 这一句的意思是打印所有进入的信息 -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <springProperty scope="context" name="LOG_HOME" source="logging.fileLocation" defaultValue="/usr/local/data/logs"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="spring.application.name"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %green([%thread]) %-5level %logger{50} - %msg%n"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 正常日志 日志文件会滚动 -->
+    <appender name="NORMAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前的日志文件存放路径 -->
+        <file>${LOG_HOME}/${LOG_FILE_NAME}/server.normal.log</file>
+        <!-- 日志滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}/history/server.normal.%i.log.gz</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
+        <!-- 日志文件中日志的格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] [%X{traceId}] [%logger{50}] %msg%n</pattern>
+            <charset>UTF8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <!-- Mybatis日志 -->
+    <logger name="com.xxl.job" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="NORMAL"/>
+    </logger>
+
+    <springProfile name="native">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="NORMAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="NORMAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="sdev">
+        <root level="INFO">
+            <appender-ref ref="NORMAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="NORMAL"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="uat">
+        <root level="INFO">
+            <appender-ref ref="NORMAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="NORMAL"/>
+        </root>
+    </springProfile>
+
+    <!--nacos 心跳 INFO 屏蔽-->
+    <logger name="com.alibaba.nacos" level="INFO"/>
+</configuration>

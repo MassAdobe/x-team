@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.x.team.test.server.repository.TUserMapper">
+    <resultMap id="BaseResultMap" type="com.x.team.test.server.entity.TUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="CHAR" property="id"/>
+        <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="is_deleted" jdbcType="CHAR" property="isDeleted"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="created_by" jdbcType="CHAR" property="createdBy"/>
+        <result column="updated_by" jdbcType="CHAR" property="updatedBy"/>
+    </resultMap>
+</mapper>

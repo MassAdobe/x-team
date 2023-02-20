@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "logging.file-location",
+      "type": "java.lang.String",
+      "description": "Description for logging.file-location."
+    }
+  ]
+}

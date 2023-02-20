@@ -1,0 +1,77 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        extension-configs[0]:
+          data-id: route.yml
+          group: X-TEAM
+
+---
+spring:
+  profiles: native
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:127.0.0.1:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:gaussian}
+        password: ${NACOS_CONFIG_PASSWORD:gaussian}
+logging:
+  file-location: /usr/local/logs/x-team
+
+---
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:172.17.110.106:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /usr/local/logs/x-team
+
+---
+spring:
+  profiles: staging
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x-team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs
+
+---
+spring:
+  profiles: uat
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x0team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs
+
+---
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_CONFIG_ADDR:x-team.mse.aliyuncs.com:8848}
+        file-extension: 'yml'
+        namespace: ${NACOS_CONFIG_NAMESPACE:x-team}
+        username: ${NACOS_CONFIG_USERNAME:x-team}
+        password: ${NACOS_CONFIG_PASSWORD:x-team}
+logging:
+  file-location: /var/logs

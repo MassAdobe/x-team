@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>test-server</artifactId>
+        <groupId>com.x.team</groupId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>test-grpc</artifactId>
+    <packaging>jar</packaging>
+    <version>${revision}</version>
+
+    <properties>
+        <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+        <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
+        <targetModelPackage>com.x.team.test.server.entity</targetModelPackage>
+        <targetMapperPackage>com.x.team.test.server.repository</targetMapperPackage>
+    </properties>
+
+    <dependencies>
+        <!-- lib -->
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>test-lib</artifactId>
+        </dependency>
+
+        <!-- schedule -->
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>test-schedule</artifactId>
+        </dependency>
+
+        <!-- 自研 -->
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>x-team-common</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>x-team-database-springboot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>x-team-grpc-springboot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>x-team-log-springboot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.x.team</groupId>
+            <artifactId>x-team-redis-springboot-starter</artifactId>
+        </dependency>
+
+        <!-- 其他 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.x.team.test.server.TestApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>${plugin-mybatis-generator.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <configurationFile>src/main/resources/generator.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>tk.mybatis</groupId>
+                        <artifactId>mapper</artifactId>
+                        <version>${tk-mybatis-mapper.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql-connector-java.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,10 @@
+# 注册到调度中心
+xxl:
+  job:
+    executor:
+      # 执行器通讯TOKEN [选填]：非空时启用；
+      access-token: default_token
+      # 日志地址
+      log-path: ${logging.file-location}/${spring.application.name}/xxl-executor
+      # 日志滚动时间
+      log-retention-days: 7

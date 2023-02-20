@@ -1,0 +1,61 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+.flattened-pom.xml
+
+x-team-config-springboot-starter/target
+x-team-config-springboot-starter/.flattened-pom.xml
+
+x-team-database-springboot-starter/target
+x-team-database-springboot-starter/.flattened-pom.xml
+
+x-team-dingtalk-springboot-starter/target
+x-team-dingtalk-springboot-starter/.flattened-pom.xml
+
+x-team-grpc-springboot-starter/target
+x-team-grpc-springboot-starter/.flattened-pom.xml
+
+x-team-http-springboot-starter/target
+x-team-http-springboot-starter/.flattened-pom.xml
+
+x-team-kafka-springboot-starter/target
+x-team-kafka-springboot-starter/.flattened-pom.xml
+
+x-team-log-springboot-starter/target
+x-team-log-springboot-starter/.flattened-pom.xml
+
+x-team-oss-springboot-starter/target
+x-team-oss-springboot-starter/.flattened-pom.xml
+
+x-team-redis-springboot-starter/target
+x-team-redis-springboot-starter/.flattened-pom.xml
+
+x-team-rest-springboot-starter/target
+x-team-rest-springboot-starter/.flattened-pom.xml
+
+x-team-schedule-springboot-starter/target
+x-team-schedule-springboot-starter/.flattened-pom.xml
+
+x-team-sms-springboot-starter/target
+x-team-sms-springboot-starter/.flattened-pom.xml
+
+x-team-wechat-springboot-starter/target
+x-team-wechat-springboot-starter/.flattened-pom.xml

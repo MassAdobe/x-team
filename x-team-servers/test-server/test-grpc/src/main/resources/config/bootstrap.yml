@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: test-server
+  profiles:
+    include: "core,grpc,schedule"
+    active: ${APPLICATION_PROFILES:native}
+server:
+  port: ${HTTP_PORT:15001}
+  servlet:
+    context-path: /test-server
+grpc:
+  server:
+    port: ${GRPC_PORT:16001}
+mybatis:
+  type-aliases-package: com.x.team.test.server.entity

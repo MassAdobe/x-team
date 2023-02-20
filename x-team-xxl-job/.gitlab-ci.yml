@@ -1,0 +1,12 @@
+include:
+  - project: 'aiot-bu/test/cicd'
+    file: 'main_xxl.yaml'
+
+display:
+  before_script:
+    - echo "CI_COMMIT_REF_NAME = ${CI_COMMIT_REF_NAME}"
+
+# 20221117 发布第1次
+# 20221117 发布第2次
+# 20221117 发布第3次
+# 20221117 发布第4次

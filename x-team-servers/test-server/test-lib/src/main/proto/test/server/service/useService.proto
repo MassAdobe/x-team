@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package test.server.service;
+
+import "google/api/annotations.proto";
+import "google/rpc/error_details.proto";
+import "google/api/http.proto";
+import "test/server/message/testMessage.proto";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+option java_package = "test.server.service";
+option java_outer_classname = "UseApiProto";
+
+// use interface implements
+service UseApi {
+  // 测试接口
+  rpc ApiTest (test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      get: "/test-server/v1/useApi/apiTest"
+    };
+  };
+  // 测试Proxy-Get
+  rpc ApiGet(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      // test-server/v1/useApi/apiGet/firsts/useGet/param?second=false
+      get: "/test-server/v1/useApi/apiGet/{first_id}"
+    };
+  };
+  // 测试Proxy-Get-Other
+  rpc ApiGetOther(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      // test-server/v1/useApi/apiGet/firsts/useGet/param?second=false
+      get: "/test-server/v1/useApi/apiGetOther/{first_id=firsts/*}"
+    };
+  };
+  // 测试Proxy-Post
+  rpc ApiPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      post: "/test-server/v1/useApi/apiPost/{first_id=firsts/*}"
+      body: "*"
+    };
+  };
+  // 测试Proxy-Put
+  rpc ApiPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      put: "/test-server/v1/useApi/apiPut/{first_id}"
+      body: "*"
+    };
+  };
+  // 测试Proxy-Delete
+  rpc ApiDelete(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      delete: "/test-server/v1/useApi/apiDelete/{first_id}"
+      body: "*"
+    };
+  };
+  // 测试自定义Post
+  rpc ApiSelfPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      post: "/test-server/v1/useApi/apiSelfPost/{first_id=firsts/*}:self"
+      body: "*"
+    };
+  };
+  // 测试自定义Put
+  rpc ApiSelfPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      put: "/test-server/v1/useApi/apiSelfPut/{first_id=firsts/*}:self"
+      body: "*"
+    };
+  };
+}
+

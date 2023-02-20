@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package test.server.service;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "test/server/message/testMessage.proto";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+option java_package = "test.server.service";
+option java_outer_classname = "TestApiProto";
+
+// test interface implements
+service TestApi {
+  // 测试接口
+  rpc Testing (test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+    option (google.api.http) = {
+      get: "/test-server/v1/testApi/testing/{first_id=firsts/*}"
+    };
+  };
+  // 测试Proxy-Get
+  rpc TestGet(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
+  // 测试Proxy-Post
+  rpc TestPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
+  // 测试Proxy-Put
+  rpc TestPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
+  // 测试Proxy-Delete
+  rpc TestDelete(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
+}
+
+message Common {
+  string path = 1;
+}
+
