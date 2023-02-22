@@ -2,6 +2,8 @@
 
 `Envoy` 是开源的边缘和服务代理，用于云原生应用，云原生基金会 `CNCF` 项目。
 
+---
+
 ## 特性
 
 + `OUT OF PROCESS ARCHITECTURE`：`Envoy` 是一款自包含的高性能服务器，具有很小的内存占用空间，它与任何应用程序语言或框架一起运行。
@@ -10,6 +12,8 @@
 + `APIS FOR CONFIGURATION MANAGEMENT`：`Envoy` 提供强大的 `API` 来动态管理其配置。
 + `OBSERVABILITY`：深入观察 `L7` 流量，原生支持分布式跟踪，以及 `MongoDB`、`DynamoDB` 等的线级可观察性。
 
+---
+
 ## 文档：
 
 > [envoy官方文档](https://www.envoyproxy.io/docs/envoy/v1.21.6/search.html)
@@ -17,6 +21,8 @@
 
 > [envoy基金会基础教程](https://academy.tetrate.io/)
 >> 可以结合基础教程做操作，其中有许多的坑，需要结合官方文档以及其`github`中开源的项目揣测。
+
+---
 
 ## 简介
 
@@ -99,6 +105,8 @@
 
 > ### HTTP/3 (Alpha)
 >> `Envoy 1.19.0` 支持 `HTTP/3` 的上行和下行，并在 `HTTP/1.1`、`HTTP/2` 和 `HTTP/3` 之间进行双向转义。
+
+---
 
 ## 项目中使用的 envoy
 
@@ -327,7 +335,7 @@ service TestApi {
 + 创建文件夹：`$ mkdir -p ~/docker/envoy/envoy-grpc-xds`;
 + 进入目录：`$ cd ~/docker/envoy/envoy-grpc-xds`;
 + 目录结构如下，主要关注`docker-compose.yml`和`envoy.yaml`;
-+ 启用`admin`接口：`curl 'http://127.0.0.1:10417/config_dump?resources=routers' >> out.json`;
++ 启用`admin`接口后打印配置：`curl 'http://127.0.0.1:10417/config_dump?resources=routers' >> out.json`;
 
 ```text
 envoy-grpc-xds

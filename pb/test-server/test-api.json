@@ -1,0 +1,910 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "TestApi接口",
+    "description": "这是另外一个测试",
+    "termsOfService": "无服务条款",
+    "version": "2.0",
+    "contact": {
+      "name": "MassAdobe",
+      "email": "massadobe8@gmail.com"
+    },
+    "license": {
+      "name": "无"
+    }
+  },
+  "tags": [
+    {
+      "name": "TestApi"
+    },
+    {
+      "name": "UseApi"
+    }
+  ],
+  "basePath": "http://127.0.0.1:8080",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/test-server/v1/testApi/testDelete/{firstId}": {
+      "delete": {
+        "summary": "第一版测试Proxy-Delete",
+        "description": "第一版测试Proxy-Delete的description",
+        "operationId": "TestApi_TestDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TestApi"
+        ]
+      }
+    },
+    "/test-server/v1/testApi/testGet/{firstId}": {
+      "get": {
+        "summary": "第一版测试Proxy-Get",
+        "description": "第一版测试Proxy-Get的description",
+        "operationId": "TestApi_TestGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "second",
+            "description": "第二个参数\n\n第二个参数description",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TestApi"
+        ]
+      }
+    },
+    "/test-server/v1/testApi/testPost/{firstId}": {
+      "post": {
+        "summary": "第一版测试Proxy-Post",
+        "description": "第一版测试Proxy-Post的description",
+        "operationId": "TestApi_TestPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TestApi"
+        ]
+      }
+    },
+    "/test-server/v1/testApi/testPut/{firstId}": {
+      "put": {
+        "summary": "第一版测试Proxy-Put",
+        "description": "第一版测试Proxy-Put的description",
+        "operationId": "TestApi_TestPut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TestApi"
+        ]
+      }
+    },
+    "/test-server/v1/testApi/testing/{firstId}": {
+      "get": {
+        "summary": "第一版Testing接口",
+        "description": "第一版Testing接口的description",
+        "operationId": "TestApi_Testing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default",
+            "pattern": "firsts/[^/]+"
+          },
+          {
+            "name": "second",
+            "description": "第二个参数\n\n第二个参数description",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TestApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiDelete/{firstId}": {
+      "delete": {
+        "summary": "测试Proxy-Delete",
+        "description": "测试Proxy-Delete的description",
+        "operationId": "UseApi_ApiDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiGet/{firstId}": {
+      "get": {
+        "summary": "测试Proxy-Get",
+        "description": "测试Proxy-Get的description",
+        "operationId": "UseApi_ApiGet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "second",
+            "description": "第二个参数\n\n第二个参数description",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiGetOther/{firstId}": {
+      "get": {
+        "summary": "测试Proxy-Get-Other",
+        "description": "测试Proxy-Get-Other的description",
+        "operationId": "UseApi_ApiGetOther",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default",
+            "pattern": "firsts/[^/]+"
+          },
+          {
+            "name": "second",
+            "description": "第二个参数\n\n第二个参数description",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiPost/{firstId}": {
+      "post": {
+        "summary": "测试Proxy-Post",
+        "description": "测试Proxy-Post的description",
+        "operationId": "UseApi_ApiPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default",
+            "pattern": "firsts/[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiPut/{firstId}": {
+      "put": {
+        "summary": "测试Proxy-Put",
+        "description": "测试Proxy-Put的description",
+        "operationId": "UseApi_ApiPut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiSelfPost/{firstId}:self": {
+      "post": {
+        "summary": "测试自定义Post",
+        "description": "测试自定义Post的description",
+        "operationId": "UseApi_ApiSelfPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default",
+            "pattern": "firsts/[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiSelfPut/{firstId}:self": {
+      "put": {
+        "summary": "测试自定义Put",
+        "description": "测试自定义Put的description",
+        "operationId": "UseApi_ApiSelfPut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数description",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default",
+            "pattern": "firsts/[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "format": "object",
+              "properties": {
+                "second": {
+                  "type": "boolean",
+                  "default": "false",
+                  "description": "第二个参数description",
+                  "title": "第二个参数"
+                },
+                "third": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/test.server.message.Third"
+                  },
+                  "description": "第三个参数description",
+                  "title": "第三个参数"
+                }
+              },
+              "description": "测试接口入参description",
+              "title": "测试接口入参"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    },
+    "/test-server/v1/useApi/apiTest": {
+      "get": {
+        "summary": "测试接口",
+        "description": "这是一个测试接口的description",
+        "operationId": "UseApi_ApiTest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/test.server.message.TestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "firstId",
+            "description": "第一个参数\n\n第一个参数description",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "first_id_default"
+          },
+          {
+            "name": "second",
+            "description": "第二个参数\n\n第二个参数description",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "Authorization",
+            "description": "请求用户验签TOKEN",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UseApi"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    },
+    "test.server.message.TestResponse": {
+      "type": "object",
+      "format": "object",
+      "properties": {
+        "a": {
+          "type": "string",
+          "default": "third_first_param_default",
+          "description": "第一个返回参数description",
+          "title": "第一个返回参数"
+        },
+        "b": {
+          "type": "integer",
+          "format": "int32",
+          "default": "456",
+          "description": "第二个返回参数description",
+          "title": "第二个返回参数"
+        }
+      },
+      "description": "测试接口出参description",
+      "title": "测试接口出参"
+    },
+    "test.server.message.Third": {
+      "type": "object",
+      "format": "object",
+      "properties": {
+        "thirdFirst": {
+          "type": "string",
+          "default": "third_first_param_default",
+          "description": "第三个参数的第一个参数description",
+          "title": "第三个参数的第一个参数",
+          "maxLength": 255
+        },
+        "thirdSecond": {
+          "type": "integer",
+          "format": "int32",
+          "default": "456",
+          "description": "第三个参数的第二个参数description",
+          "title": "第三个参数的第二个参数",
+          "maximum": 100,
+          "minimum": 1
+        }
+      },
+      "description": "测试接口入参第三个参数description",
+      "title": "测试接口入参第三个参数"
+    }
+  }
+}

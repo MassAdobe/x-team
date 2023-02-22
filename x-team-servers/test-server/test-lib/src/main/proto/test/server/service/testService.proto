@@ -3,34 +3,139 @@ syntax = "proto3";
 package test.server.service;
 
 import "google/api/annotations.proto";
+import "google/api/http.proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/wrappers.proto";
 import "test/server/message/testMessage.proto";
+import "grpc/gateway/protoc_gen_openapiv2/options/annotations.proto";
 
 option java_multiple_files = true;
 option java_generic_services = true;
 option java_package = "test.server.service";
 option java_outer_classname = "TestApiProto";
+option go_package = "x-team/test/server/service";
 
-// test interface implements
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "TestApi接口";
+    version: "2.0";
+    description: "这是另外一个测试";
+    terms_of_service: "无服务条款";
+    contact: {name: "MassAdobe", email: "massadobe8@gmail.com"};
+    license: {name: "无"};
+  };
+  schemes: [HTTP, HTTPS];
+  base_path: "http://127.0.0.1:8080";
+};
+
 service TestApi {
-  // 测试接口
+
   rpc Testing (test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
     option (google.api.http) = {
-      get: "/test-server/v1/testApi/testing/{first_id=firsts/*}"
+      get: "/test-server/v1/testApi/testing/{first_id=firsts/*}";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "第一版Testing接口";
+      description: "第一版Testing接口的description";
+      tags: ["TestApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Get
-  rpc TestGet(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
-  // 测试Proxy-Post
-  rpc TestPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
-  // 测试Proxy-Put
-  rpc TestPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
-  // 测试Proxy-Delete
-  rpc TestDelete(test.server.message.TestRequest) returns (test.server.message.TestResponse) {};
-}
 
-message Common {
-  string path = 1;
+  rpc TestGet(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
+    option (google.api.http) = {
+      get: "/test-server/v1/testApi/testGet/{first_id}";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "第一版测试Proxy-Get";
+      description: "第一版测试Proxy-Get的description";
+      tags: ["TestApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
+    };
+  };
+
+  rpc TestPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
+    option (google.api.http) = {
+      post: "/test-server/v1/testApi/testPost/{first_id}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "第一版测试Proxy-Post";
+      description: "第一版测试Proxy-Post的description";
+      tags: ["TestApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
+    };
+  };
+
+  rpc TestPut(test.server.message.TestRequest) returns (google.protobuf.Empty) {
+
+    option (google.api.http) = {
+      put: "/test-server/v1/testApi/testPut/{first_id}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "第一版测试Proxy-Put";
+      description: "第一版测试Proxy-Put的description";
+      tags: ["TestApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
+    };
+  };
+
+  rpc TestDelete(test.server.message.TestRequest) returns (google.protobuf.Empty) {
+
+    option (google.api.http) = {
+      delete: "/test-server/v1/testApi/testDelete/{first_id}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "第一版测试Proxy-Delete";
+      description: "第一版测试Proxy-Delete的description";
+      tags: ["TestApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
+    };
+  };
+
 }
 

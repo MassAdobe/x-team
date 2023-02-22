@@ -18,6 +18,8 @@ syntax = "proto3";
 
 package grpc.reflection.v1alpha;
 
+option go_package = "google.golang.org/grpc/reflection/v1alpha";
+
 service ServerReflection {
   // The reflection service is structured as a bidirectional stream, ensuring
   // all related requests go to a single server.

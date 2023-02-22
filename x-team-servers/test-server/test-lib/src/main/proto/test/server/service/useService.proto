@@ -3,70 +3,199 @@ syntax = "proto3";
 package test.server.service;
 
 import "google/api/annotations.proto";
-import "google/rpc/error_details.proto";
 import "google/api/http.proto";
+import "google/protobuf/empty.proto";
 import "test/server/message/testMessage.proto";
+import "grpc/gateway/protoc_gen_openapiv2/options/annotations.proto";
 
 option java_multiple_files = true;
 option java_generic_services = true;
 option java_package = "test.server.service";
 option java_outer_classname = "UseApiProto";
+option go_package = "x-team/test/server/service";
 
-// use interface implements
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "UserApi接口";
+    version: "2.0";
+    description: "这是一个测试";
+    terms_of_service: "无服务条款";
+    contact: {name: "MassAdobe", email: "massadobe8@gmail.com"};
+    license: {name: "无"};
+  };
+  schemes: [HTTP, HTTPS];
+  base_path: "http://127.0.0.1:8080";
+};
+
 service UseApi {
-  // 测试接口
+
   rpc ApiTest (test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
     option (google.api.http) = {
-      get: "/test-server/v1/useApi/apiTest"
+      get: "/test-server/v1/useApi/apiTest";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试接口";
+      description: "这是一个测试接口的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Get
+
   rpc ApiGet(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
     option (google.api.http) = {
-      // test-server/v1/useApi/apiGet/firsts/useGet/param?second=false
-      get: "/test-server/v1/useApi/apiGet/{first_id}"
+      get: "/test-server/v1/useApi/apiGet/{first_id}";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试Proxy-Get";
+      description: "测试Proxy-Get的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Get-Other
+
   rpc ApiGetOther(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
     option (google.api.http) = {
-      // test-server/v1/useApi/apiGet/firsts/useGet/param?second=false
-      get: "/test-server/v1/useApi/apiGetOther/{first_id=firsts/*}"
+      get: "/test-server/v1/useApi/apiGetOther/{first_id=firsts/*}";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试Proxy-Get-Other";
+      description: "测试Proxy-Get-Other的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Post
+
   rpc ApiPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
     option (google.api.http) = {
-      post: "/test-server/v1/useApi/apiPost/{first_id=firsts/*}"
-      body: "*"
+      post: "/test-server/v1/useApi/apiPost/{first_id=firsts/*}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试Proxy-Post";
+      description: "测试Proxy-Post的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Put
-  rpc ApiPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
+  rpc ApiPut(test.server.message.TestRequest) returns (google.protobuf.Empty) {
+
     option (google.api.http) = {
-      put: "/test-server/v1/useApi/apiPut/{first_id}"
-      body: "*"
+      put: "/test-server/v1/useApi/apiPut/{first_id}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试Proxy-Put";
+      description: "测试Proxy-Put的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试Proxy-Delete
-  rpc ApiDelete(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
+  rpc ApiDelete(test.server.message.TestRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/test-server/v1/useApi/apiDelete/{first_id}"
-      body: "*"
+      delete: "/test-server/v1/useApi/apiDelete/{first_id}";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试Proxy-Delete";
+      description: "测试Proxy-Delete的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试自定义Post
+
   rpc ApiSelfPost(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
     option (google.api.http) = {
-      post: "/test-server/v1/useApi/apiSelfPost/{first_id=firsts/*}:self"
-      body: "*"
+      post: "/test-server/v1/useApi/apiSelfPost/{first_id=firsts/*}:self";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试自定义Post";
+      description: "测试自定义Post的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
-  // 测试自定义Put
-  rpc ApiSelfPut(test.server.message.TestRequest) returns (test.server.message.TestResponse) {
+
+  rpc ApiSelfPut(test.server.message.TestRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      put: "/test-server/v1/useApi/apiSelfPut/{first_id=firsts/*}:self"
-      body: "*"
+      put: "/test-server/v1/useApi/apiSelfPut/{first_id=firsts/*}:self";
+      body: "*";
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "测试自定义Put";
+      description: "测试自定义Put的description";
+      tags: ["UseApi"];
+      parameters: {
+        headers: {
+          type: STRING;
+          required: true;
+          name: "Authorization";
+          description: "请求用户验签TOKEN";
+        };
+      };
     };
   };
 }

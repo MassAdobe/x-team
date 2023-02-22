@@ -2,28 +2,102 @@ syntax = "proto3";
 
 package test.server.message;
 
+import "grpc/gateway/protoc_gen_openapiv2/options/annotations.proto";
+
 option java_multiple_files = true;
 option java_package = "test.server.message";
 option java_outer_classname = "TestMessageProto";
+option go_package = "x-team/test/server/message";
 
-// ----------------------测试接口------------------------
-// 测试接口入参
+// 示例：https://raw.githubusercontent.com/grpc-ecosystem/grpc-gateway/master/examples/internal/proto/examplepb/a_bit_of_everything.proto
 message TestRequest {
-  string first_id = 1;
-  bool second = 2;
-  repeated Third third = 3;
+
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "测试接口入参";
+      description: "测试接口入参description";
+      required: ["first_id"];
+      type: OBJECT;
+    };
+  };
+
+  string first_id = 1
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第一个参数";
+    description: "第一个参数description";
+    default: "first_id_default";
+    type: STRING;
+  }];
+
+  bool second = 2
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第二个参数";
+    description: "第二个参数description";
+    default: "false";
+    type: BOOLEAN;
+  }];
+
+  repeated Third third = 3
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第三个参数";
+    description: "第三个参数description";
+    type: ARRAY;
+  }];
 }
 
-// 测试接口 Third
 message Third {
-  string third_first = 1;
-  int32 third_second = 2;
+
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "测试接口入参第三个参数";
+      description: "测试接口入参第三个参数description";
+      type: OBJECT;
+    }
+  };
+
+  string third_first = 1
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第三个参数的第一个参数";
+    description: "第三个参数的第一个参数description";
+    default: "third_first_param_default";
+    type: STRING;
+    max_length: 255;
+  }];
+
+  int32 third_second = 2
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第三个参数的第二个参数";
+    description: "第三个参数的第二个参数description";
+    default: "456";
+    type: INTEGER;
+    minimum: 1;
+    maximum: 100;
+  }];
 }
 
-// 测试接口出参
 message TestResponse {
-  string a = 1;
-  int32 b = 2;
-}
 
-// ------------------------------------------------
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "测试接口出参";
+      description: "测试接口出参description";
+      type: OBJECT;
+    };
+  };
+
+  string a = 1
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第一个返回参数";
+    description: "第一个返回参数description";
+    default: "third_first_param_default";
+    type: STRING;
+  }];
+
+  int32 b = 2
+  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "第二个返回参数";
+    description: "第二个返回参数description";
+    default: "456";
+    type: INTEGER;
+  }];
+}
