@@ -1,0 +1,52 @@
+version: '3'
+services:
+  yapi-web:
+    image: liuqingzheng/yapi:latest
+    container_name: yapi-web
+    ports:
+      - 3001:3000
+    environment:
+      - YAPI_ADMIN_ACCOUNT=massadobe8@gmail.com
+      - YAPI_ADMIN_PASSWORD=massadobe-yapi
+      - YAPI_CLOSE_REGISTER=true
+      - YAPI_DB_SERVERNAME=yapi-mongo
+      - YAPI_DB_PORT=27017
+      - YAPI_DB_DATABASE=yapi
+      - YAPI_MAIL_ENABLE=false
+      - YAPI_LDAP_LOGIN_ENABLE=true
+      - YAPI_PLUGINS=[]
+      # - YAPI_LDAP_LOGIN_SERVER=ldap://172.16.1.15:389
+      # - YAPI_LDAP_LOGIN_BASE_DN=uid=root,cn=users,dc=wurun,dc=com
+      # - YAPI_LDAP_LOGIN_BIND_PASSWORD=xxxxxxx
+      # - YAPI_LDAP_LOGIN_SEARCH_DN=dc=wurun,dc=com
+      # - YAPI_LDAP_LOGIN_SEARCH_STANDARD=&(objectClass=posixAccount)(cn=%s)(memberOf=cn=LDAP_YAPI,cn=groups,dc=wurun,dc=com)
+    depends_on:
+      - yapi-mongo
+    links:
+      - yapi-mongo
+    restart: always
+    networks:
+      yapimesh:
+        aliases:
+          - yapi-mongo-network
+
+  yapi-mongo:
+    image: mongo:latest
+    container_name: yapi-mongo
+    volumes:
+      - ./data/db:/data/db
+    expose:
+      - 27017
+    restart: always
+    extra_hosts:
+      - "github.com:140.82.114.3"
+    networks:
+      yapimesh:
+        aliases:
+          - yapi-network
+
+networks:
+  yapimesh:
+    driver: bridge
+  host:
+    external: true
