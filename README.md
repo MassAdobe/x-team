@@ -5,6 +5,7 @@
 + 需要`envoy`；
 + 需要`redis`；
 + 需要`mysql8`；
++ 需要`protoc`；
 
 ```shell
 $ vim ~/.bash_profile
@@ -142,6 +143,21 @@ export JAVA_11_HOME=`/usr/libexec/java_home -v 11`
 
 ![avatar](./doc/pics/idea-grpc-maker.jpg)
 
+### 2.3 本项目编译
+
+本项目使用了`envoy`，所以需要相关`pb`二进制文件；
+
+本项目使用了`protoc-gen-go`和`protoc-gen-openapiv2`；
+
+```shell
+# 切换下载源：
+$ go env -w GOPROXY=https://goproxy.cn
+# 下载 protoc-gen-go
+$ go install github.com/golang/protobuf/protoc-gen-go@latest
+# 下载 protoc-gen-openapiv2
+$ go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+```
+
 ### 三、遇到的坑
 
 1.打开`.proto`文件后，显示`File not found`提示。
@@ -170,4 +186,4 @@ export JAVA_11_HOME=`/usr/libexec/java_home -v 11`
 
 `$ brew install --cask --appdir=/Applications docker`
 
-`docker-compose`一并安装了
+`docker-compose`一并安装了。
