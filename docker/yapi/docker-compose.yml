@@ -1,10 +1,10 @@
 version: '3'
 services:
   yapi-web:
-    image: liuqingzheng/yapi:latest
+    image: jayfong/yapi:latest
     container_name: yapi-web
     ports:
-      - 3001:3000
+      - "3001:3000"
     environment:
       - YAPI_ADMIN_ACCOUNT=massadobe8@gmail.com
       - YAPI_ADMIN_PASSWORD=massadobe-yapi
@@ -13,7 +13,7 @@ services:
       - YAPI_DB_PORT=27017
       - YAPI_DB_DATABASE=yapi
       - YAPI_MAIL_ENABLE=false
-      - YAPI_LDAP_LOGIN_ENABLE=true
+      - YAPI_LDAP_LOGIN_ENABLE=false
       - YAPI_PLUGINS=[]
       # - YAPI_LDAP_LOGIN_SERVER=ldap://172.16.1.15:389
       # - YAPI_LDAP_LOGIN_BASE_DN=uid=root,cn=users,dc=wurun,dc=com
@@ -31,7 +31,7 @@ services:
           - yapi-mongo-network
 
   yapi-mongo:
-    image: mongo:latest
+    image: mongo:4.2-rc
     container_name: yapi-mongo
     volumes:
       - ./data/db:/data/db
