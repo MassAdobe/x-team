@@ -1,5 +1,6 @@
 package com.x.team.test.server.grpc;
 
+import com.google.protobuf.Empty;
 import com.x.team.common.utils.CommonUtils;
 import com.x.team.test.server.service.TestService;
 import io.grpc.stub.StreamObserver;
@@ -86,12 +87,8 @@ public class UseGrpc extends UseApiGrpc.UseApiImplBase {
      * 测试Proxy-Put
      */
     @Override
-    public void apiPut(TestRequest testRequest, StreamObserver<TestResponse> responseStreamObserver) {
+    public void apiPut(TestRequest testRequest, StreamObserver<Empty> responseStreamObserver) {
         log.info("[测试接口]: apiPut: {}", testRequest);
-        responseStreamObserver.onNext(TestResponse.newBuilder()
-                .setA("apiPut-" + CommonUtils.getRandomString(4))
-                .setB(CommonUtils.getRandomNumBetween(0, 9999))
-                .build());
         responseStreamObserver.onCompleted();
     }
 
@@ -99,12 +96,8 @@ public class UseGrpc extends UseApiGrpc.UseApiImplBase {
      * 测试Proxy-Delete
      */
     @Override
-    public void apiDelete(TestRequest testRequest, StreamObserver<TestResponse> responseStreamObserver) {
+    public void apiDelete(TestRequest testRequest, StreamObserver<Empty> responseStreamObserver) {
         log.info("[测试接口]: apiDelete: {}", testRequest);
-        responseStreamObserver.onNext(TestResponse.newBuilder()
-                .setA("apiDelete-" + CommonUtils.getRandomString(4))
-                .setB(CommonUtils.getRandomNumBetween(0, 9999))
-                .build());
         responseStreamObserver.onCompleted();
     }
 
@@ -125,12 +118,8 @@ public class UseGrpc extends UseApiGrpc.UseApiImplBase {
      * 测试自定义
      */
     @Override
-    public void apiSelfPut(TestRequest testRequest, StreamObserver<TestResponse> responseStreamObserver) {
+    public void apiSelfPut(TestRequest testRequest, StreamObserver<Empty> responseStreamObserver) {
         log.info("[测试接口]: apiSelfPost: {}", testRequest);
-        responseStreamObserver.onNext(TestResponse.newBuilder()
-                .setA("apiSelfPut-" + CommonUtils.getRandomString(4))
-                .setB(CommonUtils.getRandomNumBetween(0, 9999))
-                .build());
         responseStreamObserver.onCompleted();
     }
 }

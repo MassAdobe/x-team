@@ -1,5 +1,6 @@
 package com.x.team.test.server.grpc;
 
+import com.google.protobuf.Empty;
 import com.x.team.test.server.service.TestService;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
@@ -53,8 +54,7 @@ public class TestGrpc extends TestApiGrpc.TestApiImplBase {
      * 测试Proxy-Put
      */
     @Override
-    public void testPut(TestRequest testRequest, StreamObserver<TestResponse> responseStreamObserver) {
-        responseStreamObserver.onNext(this.testService.testing(testRequest));
+    public void testPut(TestRequest testRequest, StreamObserver<Empty> responseStreamObserver) {
         responseStreamObserver.onCompleted();
     }
 
@@ -62,8 +62,7 @@ public class TestGrpc extends TestApiGrpc.TestApiImplBase {
      * 测试Proxy-Delete
      */
     @Override
-    public void testDelete(TestRequest testRequest, StreamObserver<TestResponse> responseStreamObserver) {
-        responseStreamObserver.onNext(this.testService.testing(testRequest));
+    public void testDelete(TestRequest testRequest, StreamObserver<Empty> responseStreamObserver) {
         responseStreamObserver.onCompleted();
     }
 }
