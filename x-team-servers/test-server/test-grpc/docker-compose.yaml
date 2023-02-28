@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+  # envoy
+  envoy:
+    container_name: envoy-test
+    image: envoyproxy/envoy-alpine:v1.21.6
+    ports:
+      - "17001:10408"
+      - "18001:10417"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./pb/:/etc/envoy/pb/
+    depends_on:
+      - jar
+    expose:
+      - "10408"
+      - "10417"
+    networks:
+      envoytest:
+        aliases:
+          - envoy-test-network
+  # item-program
+  jar:
+    contianer_name: test-server
+    build:
+      context: .
+    ports:
+      - "25001:25001"
+    volumes:
+      - /etc/hosts:/etc/hosts:ro
+      - ./log:/usr/local/logs/x-team
+    expose:
+      - "16001"
+      - "15001"
+    networks:
+      envoytest:
+        aliases:
+          - server-test-network
+
+networks:
+  envoytest:
+    driver: bridge
+  host:
+    external: true

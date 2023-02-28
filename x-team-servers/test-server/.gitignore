@@ -19,6 +19,8 @@
 *.tar.gz
 *.rar
 
+log
+
 .flattened-pom.xml
 
 test-grpc/target

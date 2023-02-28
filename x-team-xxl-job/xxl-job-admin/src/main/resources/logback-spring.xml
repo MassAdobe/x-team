@@ -63,12 +63,6 @@
         </root>
     </springProfile>
 
-    <springProfile name="sdev">
-        <root level="INFO">
-            <appender-ref ref="NORMAL"/>
-        </root>
-    </springProfile>
-
     <springProfile name="test">
         <root level="INFO">
             <appender-ref ref="NORMAL"/>

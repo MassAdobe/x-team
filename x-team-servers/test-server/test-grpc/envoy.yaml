@@ -1,0 +1,46 @@
+node:
+  id: test-server-envoy
+  cluster: test-server-envoy-cluster
+
+admin:
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 10417
+  access_log:
+  - name: envoy.access_loggers.file
+    typed_config:
+      "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+
+dynamic_resources:
+  lds_config:
+    resource_api_version: V3
+    api_config_source:
+      api_type: GRPC
+      transport_api_version: V3
+      grpc_services:
+        envoy_grpc:
+          cluster_name: test-server-xds
+  cds_config:
+    resource_api_version: V3
+    api_config_source:
+      api_type: GRPC
+      transport_api_version: V3
+      grpc_services:
+        envoy_grpc:
+          cluster_name: test-server-xds
+
+static_resources:
+  clusters:
+  - name: test-server-xds
+    connect_timeout: 10s
+    type: LOGICAL_DNS
+    http2_protocol_options: {}
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: test-server-xds
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address: { address: host.docker.internal, port_value: 16001 }
