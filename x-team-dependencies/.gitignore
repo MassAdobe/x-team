@@ -18,5 +18,6 @@
 *.zip
 *.tar.gz
 *.rar
+*.iml
 
 .flattened-pom.xml
