@@ -29,6 +29,7 @@ RUN apt-get install telnetd-ssl -y
 RUN apt-get install xinetd -y
 RUN apt-get install telnetd -y
 RUN apt-get install telnet -y
+RUN apt-get install lsof -y
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 && echo 'Asia/Shanghai' >/etc/timezone
 ```
@@ -198,7 +199,7 @@ services:
     container_name: test-server
     restart: always
     build:
-      context: .
+      context: ../test-server/test-grpc/deploy
     ports:
       # XXL-JOB端口 需要修改
       - "17001:17001"
