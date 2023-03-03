@@ -10,6 +10,7 @@ services:
     ports:
       - "38080:38080"
     volumes:
+      - /etc/hosts:/etc/hosts:ro
       - ./log:/usr/local/logs/x-team/xxl-job-admin
     extra_hosts:
       - "dev-mysql:172.17.110.106"
