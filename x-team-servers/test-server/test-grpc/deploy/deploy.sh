@@ -2,14 +2,16 @@
 
 ## 常量
 APPLICATION_NAME="test"
+## 对齐application.yaml
 SERVER_PORT="16001"
 XXL_PORT="17001"
 ENVOY_PORT="18001"
 ADMIN_PORT="19001"
-# 集中还是分开
-TYPE="split"
-# 地址
-XDS_ADDRESS="localhost"
+## 集中还是分开 默认“集中”
+DEPLOY_TYPE="concentrated"
+#DEPLOY_TYPE="split"
+## 地址
+XDS_ADDRESS="127.0.0.1"
 ## 变量
 target_path=$(pwd)
 
@@ -21,14 +23,15 @@ mvn clean install
 # shellcheck disable=SC2164
 cd "$target_path"
 # 复制
-if [ "split" == "$TYPE" ]; then
-  cp docker-compose-split.yaml docker-compose.yaml
-  cp Dockerfile-split Dockerfile
-  cp entrypoint-template.sh entrypoint.sh
-else
-  cp docker-compose-template.yaml docker-compose.yaml
-  cp Dockerfile-template Dockerfile
+cp ../../../template/envoy-template.yaml envoy.yaml
+if [ "split" == "$DEPLOY_TYPE" ]; then
+  cp ../../../template/docker-compose-split.yaml docker-compose.yaml
+  cp ../../../template/Dockerfile-split Dockerfile
   XDS_ADDRESS="$APPLICATION_NAME-server"
+else
+  cp ../../../template/docker-compose-concentrated.yaml docker-compose.yaml
+  cp ../../../template/Dockerfile-concentrated Dockerfile
+  cp ../../../template/entrypoint-concentrated.sh entrypoint.sh
 fi
 # 更换数据
 TIMESTAMP=$(date "+%Y%m%d%H%M%S")
@@ -45,8 +48,10 @@ sed -i "" "s/{{APPLICATION_NAME}}/$APPLICATION_NAME/g" envoy.yaml
 sed -i "" "s/{{XDS_ADDRESS}}/$XDS_ADDRESS/g" envoy.yaml
 # dockerfile
 sed -i "" "s/{{XXL_PORT}}/$XXL_PORT/g" Dockerfile
-# dockerfile
+sed -i "" "s/{{DEPLOY_TYPE}}/$DEPLOY_TYPE/g" Dockerfile
+# entrypoint
 sed -i "" "s/{{XXL_PORT}}/$XXL_PORT/g" entrypoint.sh
+sed -i "" "s/{{DEPLOY_TYPE}}/$DEPLOY_TYPE/g" entrypoint.sh
 sed -i "" "s/{{APPLICATION_NAME}}/$APPLICATION_NAME/g" entrypoint.sh
 # 移动
 cp ../target/*.jar ./app.jar
@@ -78,14 +83,14 @@ expect -c"
 		*password:* {send \"$SERVER_PASSWORD\r\"}
 	}
 	expect ]# { send \"cd /data/x-team/$APPLICATION_NAME-server\n\" }
-	expect ]# { send \"rm -rf ./deploy.sh ./README.md ./docker-compose-* ./Dockerfile-* ./entrypoint-* ./api\n\" }
+	expect ]# { send \"rm -rf ./deploy.sh ./README.md ./docker-compose-* ./Dockerfile-* ./entrypoint-* ./envoy-* ./api\n\" }
 	expect ]# { send \"docker-compose up -d\n\" }
 	expect ]# { send \"exit\n\" }
 	interact
 "
 
 # 删除
-rm -rf ./docker-compose.yaml ./app.jar ./Dockerfile ./entrypoint.sh
+rm -rf ./docker-compose.yaml ./app.jar ./Dockerfile ./entrypoint.sh ./envoy.yaml
 
 
 
