@@ -7,8 +7,8 @@ services:
     restart: always
     image: envoyproxy/envoy-alpine:v1.21.6
     ports:
-      - "18001:10408"
-      - "19001:10417"
+      - "{{ENVOY_PORT}}:10408"
+      - "{{ADMIN_PORT}}:10417"
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
       - ./pb/:/etc/envoy/pb/
@@ -29,13 +29,13 @@ services:
     build:
       context: .
     ports:
-      - "17001:17001"
-      - "16001:9090"
+      - "{{XXL_PORT}}:17001"
+      - "{{SERVER_PORT}}:9090"
     volumes:
       - /etc/hosts:/etc/hosts:ro
-      - ./log:/usr/local/logs/x-team
+      - ./log:/var/logs
     expose:
-      - "17001"
+      - "{{XXL_PORT}}"
       - "9090"
     extra_hosts:
       - "dev-mysql:172.17.110.106"

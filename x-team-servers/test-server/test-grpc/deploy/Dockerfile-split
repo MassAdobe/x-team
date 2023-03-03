@@ -1,0 +1,6 @@
+FROM base:0106
+MAINTAINER massadobe
+COPY entrypoint.sh /entrypoint.sh
+COPY envoy.yaml /etc/envoy/envoy.yaml
+COPY app.jar /app.jar
+ENTRYPOINT ["sh", "/entrypoint.sh"]

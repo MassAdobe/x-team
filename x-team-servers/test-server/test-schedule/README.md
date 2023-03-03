@@ -9,3 +9,5 @@
 ## 定义`executor`
 
 照着`test-schedule`中的`executor`写；
+
+需要注意生成`traceId`和`stepId`。

@@ -5,6 +5,7 @@ import com.x.team.common.enums.ErrorCodeMsg;
 import com.x.team.grpc.springboot.starter.config.GrpcServiceConfig;
 import com.x.team.grpc.springboot.starter.envoy.constants.ClusterConstants;
 import com.x.team.grpc.springboot.starter.envoy.constants.EnvoyConstants;
+import com.x.team.grpc.springboot.starter.envoy.constants.ListenerConstants;
 import com.x.team.grpc.springboot.starter.envoy.v3.Resources;
 import com.x.team.grpc.springboot.starter.exception.GrpcException;
 import io.envoyproxy.envoy.config.core.v3.Address;
@@ -140,7 +141,7 @@ public class EdsGrpc extends EndpointDiscoveryServiceGrpc.EndpointDiscoveryServi
                                         .setAddress(Address.newBuilder()
                                                 .setSocketAddress(SocketAddress.newBuilder()
                                                         // address select environments, as native docker address, as others k8s dns
-                                                        .setAddress(InetAddress.getLocalHost().getHostAddress())
+                                                        .setAddress(ListenerConstants.LOCALHOST)
                                                         // port
                                                         .setPortValue(GrpcServiceConfig.getGrpcServerPort())
                                                         // protocol

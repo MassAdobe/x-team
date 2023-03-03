@@ -510,7 +510,7 @@ echo "----- INFO [RENAME apidocs.swagger.json HAS BEEN RENAMED AS $APPLICATION_N
 
 ### 结合 YAPI 的 gRPC使用
 
-当执行了上一步的`pb.sh`后，会在项目下：`x-team/pb/${application-name}-server`下，生成`${application-name}-api.json`；
+当执行了上一步的`pb.sh`后，会在项目下：`/${application-name}-grpc/deploy/api`下，生成`${application-name}-api.json`；
 
 将上一步生成的`${application-name}-api.json`导入`yapi`中；
 

@@ -32,7 +32,7 @@ spring:
         username: ${NACOS_CONFIG_USERNAME:x-team}
         password: ${NACOS_CONFIG_PASSWORD:x-team}
 logging:
-  file-location: /usr/local/logs/x-team
+  file-location: /var/logs
 
 ---
 spring:

@@ -18,12 +18,12 @@ spring:
   dataSource:
     username: test
     password: test123
-    url: jdbc:mysql://172.17.110.106:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://dev-mysql:3388/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
   # redis配置
   redis:
     port: 6379
     password: 86zsEp
-    host: 172.10.4.91
+    host: dev-redis
     database: 10
 # 毋需token的grpc方法配置
 grpc:

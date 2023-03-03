@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  server:
+    container_name: {{APPLICATION_NAME}}-server
+    restart: always
+    image: {{APPLICATION_NAME}}-server:{{SERVER_TAG}}
+    build:
+      context: .
+    ports:
+      - "{{SERVER_PORT}}:9090"
+      - "{{XXL_PORT}}:{{XXL_PORT}}"
+      - "{{ENVOY_PORT}}:10408"
+      - "{{ADMIN_PORT}}:10417"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./pb/:/etc/envoy/pb/
+      - /etc/hosts:/etc/hosts:ro
+      - ./log:/var/logs
+    expose:
+      - "9090"
+      - "10408"
+      - "10417"
+      - "{{XXL_PORT}}"
+    extra_hosts:
+      - "dev-mysql:172.17.110.106"
+      - "dev-redis:172.17.110.106"
+    networks:
+      test_mash:
+        aliases:
+          - {{APPLICATION_NAME}}_server_network
+
+networks:
+  test_mash:
+    driver: bridge
+  host:
+    external: true
