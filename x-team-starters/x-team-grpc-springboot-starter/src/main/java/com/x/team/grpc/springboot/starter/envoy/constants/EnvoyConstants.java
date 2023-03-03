@@ -31,4 +31,8 @@ public class EnvoyConstants {
      * gRPC service suffix
      */
     public static final String GRPC_SERVICE_SUFFIX = ".service";
+    /**
+     * 部署方式：集中(concentrated)/分裂(split)
+     */
+    public static final String DEPLOY_TYPE_CONCENTRATED = "concentrated";
 }

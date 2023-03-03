@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**

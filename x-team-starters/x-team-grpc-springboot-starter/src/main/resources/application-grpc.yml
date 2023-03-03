@@ -14,3 +14,5 @@ grpc:
       keepAliveWithoutCalls: true
       # 协议种类
       negotiationType: plaintext
+# 部署方式
+deploy-type: ${DEPLOY_TYPE:concentrated}

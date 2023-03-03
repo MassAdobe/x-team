@@ -1,8 +1,8 @@
 node:
   # 需要修改
-  id: test-server-envoy
+  id: {{APPLICATION_NAME}}-server-envoy
   # 需要修改
-  cluster: test-server-envoy-cluster
+  cluster: {{APPLICATION_NAME}}-server-envoy-cluster
 
 admin:
   address:
@@ -23,7 +23,7 @@ dynamic_resources:
       grpc_services:
         envoy_grpc:
           # 需要修改
-          cluster_name: test-server-xds
+          cluster_name: {{APPLICATION_NAME}}-server-xds
   cds_config:
     resource_api_version: V3
     api_config_source:
@@ -32,22 +32,22 @@ dynamic_resources:
       grpc_services:
         envoy_grpc:
           # 需要修改
-          cluster_name: test-server-xds
+          cluster_name: {{APPLICATION_NAME}}-server-xds
 
 static_resources:
   clusters:
   # 需要修改
-  - name: test-server-xds
+  - name: {{APPLICATION_NAME}}-server-xds
     connect_timeout: 10s
     type: LOGICAL_DNS
     http2_protocol_options: {}
     lb_policy: ROUND_ROBIN
     load_assignment:
       # 需要修改
-      cluster_name: test-server-xds
+      cluster_name: {{APPLICATION_NAME}}-server-xds
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               # 需要修改 socket_address: { address: test-server, port_value: 9090 }
-              socket_address: { address: 127.0.0.1, port_value: 9090 }
+              socket_address: { address: {{XDS_ADDRESS}}, port_value: 9090 }

@@ -3,6 +3,7 @@ MAINTAINER massadobe
 COPY app.jar /app.jar
 ENTRYPOINT ["java","-jar","-DAPPLICATION_PROFILES=dev", \
 "-DXXL_EXECUTOR_PORT={{XXL_PORT}}", \
+"-DDEPLOY_TYPE={{DEPLOY_TYPE}}", \
 "-DHTTP_PORT=8080", \
 "-DGRPC_PORT=9090", \
 "/app.jar"]

@@ -141,7 +141,8 @@ public class EdsGrpc extends EndpointDiscoveryServiceGrpc.EndpointDiscoveryServi
                                         .setAddress(Address.newBuilder()
                                                 .setSocketAddress(SocketAddress.newBuilder()
                                                         // address select environments, as native docker address, as others k8s dns
-                                                        .setAddress(ListenerConstants.LOCALHOST)
+                                                        .setAddress(EnvoyConstants.DEPLOY_TYPE_CONCENTRATED.equals(GrpcServiceConfig.getDeployType())
+                                                                ? ListenerConstants.LOCALHOST : InetAddress.getLocalHost().getHostAddress())
                                                         // port
                                                         .setPortValue(GrpcServiceConfig.getGrpcServerPort())
                                                         // protocol

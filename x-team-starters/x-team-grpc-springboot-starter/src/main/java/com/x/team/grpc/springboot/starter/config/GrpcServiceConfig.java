@@ -131,6 +131,20 @@ public class GrpcServiceConfig {
     }
 
     /**
+     * 部署方式：分裂/集中
+     */
+    private static String deployType;
+
+    @Value("${deploy-type:concentrated}")
+    public void setDeployType(String deployType) {
+        GrpcServiceConfig.deployType = deployType;
+    }
+
+    public static String getDeployType() {
+        return GrpcServiceConfig.deployType;
+    }
+
+    /**
      * gRPC服务列表
      */
     public static List<String> grpcServiceList;
