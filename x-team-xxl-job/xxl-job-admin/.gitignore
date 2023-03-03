@@ -23,6 +23,8 @@
 hs_err_pid*
 
 log
+logs
+work
 
 target
 .flattened-pom.xml

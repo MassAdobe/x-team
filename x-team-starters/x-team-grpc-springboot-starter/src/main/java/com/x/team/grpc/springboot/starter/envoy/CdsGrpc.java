@@ -153,8 +153,7 @@ public class CdsGrpc extends ClusterDiscoveryServiceGrpc.ClusterDiscoveryService
                                                     .setAddress(Address.newBuilder()
                                                             .setSocketAddress(SocketAddress.newBuilder()
                                                                     // address select environments, as native docker address, as others k8s dns
-                                                                    .setAddress(SystemConstants.ENVIRONMENT_NATIVE.equals(GrpcServiceConfig.getEnvironment()) ?
-                                                                            EnvoyConstants.DOCKER_ADDRESS : GrpcServiceConfig.getApplicationName())
+                                                                    .setAddress(EnvoyConstants.DOCKER_ADDRESS)
                                                                     // port
                                                                     .setPortValue(GrpcServiceConfig.getGrpcServerPort())
                                                                     // protocol

@@ -1,7 +1,7 @@
 package com.x.team.grpc.springboot.starter.envoy;
 
 import com.google.protobuf.Any;
-import com.x.team.common.constants.SystemConstants;
+import com.x.team.common.enums.ErrorCodeMsg;
 import com.x.team.grpc.springboot.starter.config.GrpcServiceConfig;
 import com.x.team.grpc.springboot.starter.envoy.constants.EnvoyConstants;
 import com.x.team.grpc.springboot.starter.envoy.constants.ListenerConstants;
@@ -9,6 +9,7 @@ import com.x.team.grpc.springboot.starter.envoy.constants.RouterConstants;
 import com.x.team.grpc.springboot.starter.envoy.templates.ResponseMapperTemplate;
 import com.x.team.grpc.springboot.starter.envoy.v3.Resources;
 import com.x.team.grpc.springboot.starter.envoy.v3.XdsGrpc;
+import com.x.team.grpc.springboot.starter.exception.GrpcException;
 import io.envoyproxy.envoy.config.core.v3.Address;
 import io.envoyproxy.envoy.config.core.v3.SocketAddress;
 import io.envoyproxy.envoy.config.listener.v3.Filter;
@@ -33,6 +34,8 @@ import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import com.google.protobuf.BoolValue;
+
+import java.net.UnknownHostException;
 
 /**
  * 描述：envoy的ListenerDS
@@ -82,7 +85,13 @@ public class LdsGrpc extends ListenerDiscoveryServiceGrpc.ListenerDiscoveryServi
         return new StreamObserver<DiscoveryRequest>() {
             @Override
             public void onNext(DiscoveryRequest discoveryRequest) {
-                DiscoveryResponse discoveryResponse = LdsGrpc.registerListener();
+                DiscoveryResponse discoveryResponse = null;
+                try {
+                    discoveryResponse = LdsGrpc.registerListener();
+                } catch (UnknownHostException e) {
+                    log.error("[envoy-listener]: streamEndpoints \n [error: current get server ip error]");
+                    throw new GrpcException(ErrorCodeMsg.ENVOY_ERROR);
+                }
                 log.trace("[envoy-listener]: streamListeners\n[request: {}], \n[response: {}]",
                         discoveryRequest, discoveryResponse);
                 // return envoy
@@ -109,7 +118,13 @@ public class LdsGrpc extends ListenerDiscoveryServiceGrpc.ListenerDiscoveryServi
      */
     @Override
     public void fetchListeners(DiscoveryRequest discoveryRequest, StreamObserver<DiscoveryResponse> responseObserver) {
-        DiscoveryResponse discoveryResponse = LdsGrpc.registerListener();
+        DiscoveryResponse discoveryResponse = null;
+        try {
+            discoveryResponse = LdsGrpc.registerListener();
+        } catch (UnknownHostException e) {
+            log.error("[envoy-listener]: fetchListeners \n [error: current get server ip error]");
+            throw new GrpcException(ErrorCodeMsg.ENVOY_ERROR);
+        }
         log.trace("[envoy-listener]: fetchListeners\n[request: {}], \n[response: {}]",
                 discoveryRequest, discoveryResponse);
         responseObserver.onNext(discoveryResponse);
@@ -122,7 +137,7 @@ public class LdsGrpc extends ListenerDiscoveryServiceGrpc.ListenerDiscoveryServi
      * @author MassAdobe
      * @date Created in 2023/2/13 16:36
      */
-    private static DiscoveryResponse registerListener() {
+    private static DiscoveryResponse registerListener() throws UnknownHostException {
         // gRPC转换器
         GrpcJsonTranscoder grpcJsonTranscoder =
                 GrpcJsonTranscoder.newBuilder()
@@ -206,8 +221,7 @@ public class LdsGrpc extends ListenerDiscoveryServiceGrpc.ListenerDiscoveryServi
                 .setAddress(Address.newBuilder()
                         .setSocketAddress(SocketAddress.newBuilder()
                                 // select environments, as native docker address, as others k8s dns
-                                .setAddress(SystemConstants.ENVIRONMENT_NATIVE.equals(GrpcServiceConfig.getEnvironment())
-                                        ? ListenerConstants.ANY_ADDRESS : GrpcServiceConfig.getApplicationName())
+                                .setAddress(ListenerConstants.ANY_ADDRESS)
                                 .setPortValue(ListenerConstants.LISTENER_PORT)
                                 .setProtocol(SocketAddress.Protocol.TCP)))
                 .addFilterChains(FilterChain.newBuilder()

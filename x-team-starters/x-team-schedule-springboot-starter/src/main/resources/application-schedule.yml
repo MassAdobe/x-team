@@ -2,6 +2,7 @@
 xxl:
   job:
     executor:
+      port: ${XXL_EXECUTOR_PORT:8081}
       # 执行器通讯TOKEN [选填]：非空时启用；
       access-token: default_token
       # 日志地址

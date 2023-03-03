@@ -1,25 +1,25 @@
-version: '3.8'
+version: '3'
 
 services:
-  # xxl-job-admin
   xxl:
     container_name: xxl-job-admin
+    restart: always
     build:
       context: .
-    image: xxl-job-admin:v20230228-3
+    image: xxl-job-admin:{{SERVER_TAG}}
     ports:
       - "38080:38080"
     volumes:
       - ./log:/usr/local/logs/x-team/xxl-job-admin
     extra_hosts:
-      - "native-mysql:172.17.110.106"
+      - "dev-mysql:172.17.110.106"
     networks:
-      xxlmesh:
+      xxl_mesh:
         aliases:
-          - xxl-admin-network
+          - xxl_admin_network
 
 networks:
-  xxlmesh:
+  xxl_mesh:
     driver: bridge
   host:
     external: true

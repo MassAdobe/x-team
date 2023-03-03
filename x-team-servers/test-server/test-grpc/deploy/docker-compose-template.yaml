@@ -1,45 +1,52 @@
 version: '3.3'
 
 services:
-  # envoy
+
   envoy:
-    container_name: envoy-test
+    container_name: test-envoy
+    restart: always
     image: envoyproxy/envoy-alpine:v1.21.6
     ports:
-      - "17001:10408"
-      - "18001:10417"
+      - "18001:10408"
+      - "19001:10417"
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
       - ./pb/:/etc/envoy/pb/
     depends_on:
-      - jar
+      - server
     expose:
       - "10408"
       - "10417"
     networks:
-      envoytest:
+      test_mash:
         aliases:
-          - envoy-test-network
-  # item-program
-  jar:
-    contianer_name: test-server
+          - test_envoy_network
+
+  server:
+    container_name: test-server
+    restart: always
+    image: test-server:{{SERVER_TAG}}
     build:
       context: .
     ports:
-      - "25001:25001"
+      - "17001:17001"
+      - "16001:9090"
     volumes:
       - /etc/hosts:/etc/hosts:ro
       - ./log:/usr/local/logs/x-team
     expose:
-      - "16001"
-      - "15001"
+      - "17001"
+      - "9090"
+    extra_hosts:
+      - "dev-mysql:172.17.110.106"
+      - "dev-redis:172.17.110.106"
     networks:
-      envoytest:
+      test_mash:
         aliases:
-          - server-test-network
+          - test_server_network
 
 networks:
-  envoytest:
+  test_mash:
     driver: bridge
   host:
     external: true

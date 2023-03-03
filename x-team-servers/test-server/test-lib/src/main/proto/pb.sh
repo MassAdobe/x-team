@@ -29,8 +29,8 @@ rm -rf ./grpc
 echo "----- INFO [OPENAPI (ANNOTATIONS/OPEN-API-V2) HAS BEEN DELETED] -----"
 
 ## 先删除原来的PB和API文件
-rm -rf ../../../../../../pb/$APPLICATION_NAME-server/*.pb
-rm -rf ../../../../../../pb/$APPLICATION_NAME-server/*.json
+rm -rf ../../../../$APPLICATION_NAME-grpc/deploy/pb/*.pb
+rm -rf ../../../../$APPLICATION_NAME-grpc/deploy/api/*.json
 echo "----- INFO [DELETED ORIGIN $APPLICATION_NAME-server.pb AND $APPLICATION_NAME-api.json] -----"
 
 ## 复制envoy的proto到目标文件夹下
@@ -82,13 +82,13 @@ echo "----- INFO [DOING PROTOC PB] -----"
 protoc -I ../../../../../../x-team-starters/x-team-grpc-springboot-starter/src/main/proto \
   -I ./ \
   --include_imports --include_source_info \
-  --descriptor_set_out=../../../../../../pb/$APPLICATION_NAME-server/$APPLICATION_NAME-server.pb \
+  --descriptor_set_out=../../../../$APPLICATION_NAME-grpc/deploy/pb/$APPLICATION_NAME-server.pb \
   ./$APPLICATION_NAME/server/service/*.proto
 echo "----- INFO [NEW $APPLICATION_NAME-server.pb HAS BEEN GENERATED] -----"
 echo ""
 
 ## 复制到envoy目录下
-cp ../../../../../../pb/$APPLICATION_NAME-server/$APPLICATION_NAME-server.pb ~/docker/envoy-grpc-xds/pb/$APPLICATION_NAME-server.pb
+cp ../../../../$APPLICATION_NAME-grpc/deploy/pb/$APPLICATION_NAME-server.pb ~/docker/envoy-grpc-xds/pb/$APPLICATION_NAME-server.pb
 echo "----- INFO [NEW $APPLICATION_NAME-server.pb HAS BEEN COPIED] -----"
 
 ## 删除envoy的proto文件
@@ -109,7 +109,7 @@ echo "----- INFO [DOING PROTOC SWAGGER] -----"
 protoc -I ../../../../../../x-team-starters/x-team-grpc-springboot-starter/src/main/proto \
   -I ./ \
   --include_imports --include_source_info \
-  --openapiv2_out ../../../../../../pb/$APPLICATION_NAME-server \
+  --openapiv2_out ../../../../$APPLICATION_NAME-grpc/deploy/api \
   --openapiv2_opt logtostderr=true \
   --openapiv2_opt allow_delete_body=true \
   --openapiv2_opt allow_merge=true \
@@ -121,5 +121,5 @@ echo ""
 
 ## 转译api的文件json
 # shellcheck disable=SC2224
-mv ../../../../../../pb/$APPLICATION_NAME-server/apidocs.swagger.json ../../../../../../pb/$APPLICATION_NAME-server/$APPLICATION_NAME-api.json
+mv ../../../../$APPLICATION_NAME-grpc/deploy/api/apidocs.swagger.json ../../../../$APPLICATION_NAME-grpc/deploy/api/$APPLICATION_NAME-api.json
 echo "----- INFO [RENAME apidocs.swagger.json HAS BEEN RENAMED AS $APPLICATION_NAME-api.json] -----"

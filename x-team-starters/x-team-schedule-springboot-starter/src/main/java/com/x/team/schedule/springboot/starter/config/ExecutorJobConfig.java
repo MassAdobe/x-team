@@ -116,26 +116,17 @@ public class ExecutorJobConfig {
         return ExecutorJobConfig.ip;
     }
 
-    public static void setIp(String ip) {
-        try {
-            String hostAddress = InetAddress.getLocalHost().getHostAddress();
-            if (ScheduleConstants.SCHEDULE_LOCAL_HOST_ADDRESS.equals(hostAddress)) {
-                hostAddress = ScheduleConstants.DOCKER_HOST_ADDRESS;
-            }
-            ExecutorJobConfig.ip = hostAddress;
-        } catch (UnknownHostException e) {
-            log.error("[xxl-job-configuration]: get host address error, error: {}", e.getMessage());
-            throw new RuntimeException("GET HOST ADDRESS ERROR");
-        }
+    public void setIp(String ip) {
+        ExecutorJobConfig.ip = ip;
     }
 
     public static Integer getPort() {
         return ExecutorJobConfig.port;
     }
 
-    @Value("${server.port:8080}")
+    @Value("${xxl.job.executor.port}")
     public void setPort(Integer port) {
-        ExecutorJobConfig.port = port + 10000;
+        ExecutorJobConfig.port = port;
     }
 
     public String getLogPath() {
