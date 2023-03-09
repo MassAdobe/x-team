@@ -66,6 +66,7 @@ expect -c"
 	}
 	expect ]# { send \"cd /data/x-team/$APPLICATION_NAME-server\n\" }
 	expect ]# { send \"docker-compose down\n\" }
+	expect ]# { send \"docker rm \`docker ps -aq\`\"\n }
 	expect ]# { send \"docker rmi \`docker images -q $APPLICATION_NAME-server\`\n\" }
 	expect ]# { send \"exit\n\" }
 	interact

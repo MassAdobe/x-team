@@ -34,6 +34,10 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 && echo 'Asia/Shanghai' >/etc/timezone
 ```
 
+### 创建基础镜像
+
+`$ docker build -t jdk11:0408 .`
+
 ### 集中
 
 ```dockerfile
@@ -71,7 +75,7 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 
 ### 创建基础镜像
 
-`$ docker build -t jdk11:0106 .`
+`$ docker build -t baseXTeam:0106 .`
 
 ### 清除镜像
 
